@@ -615,7 +615,9 @@ def add(urls: Union[str, List[str]],
 
     # Load list of links from the existing index
     check_data_folder(out_dir=out_dir)
-    check_dependencies()
+    # Don't really need to check dependencies if we're only adding to the index
+    if not index_only:
+        check_dependencies()
     new_links: List[Link] = []
     all_links = load_main_index(out_dir=out_dir)
 
