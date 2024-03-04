@@ -130,10 +130,8 @@ def run_parser_functions(to_parse: IO[str], timer, root_url: Optional[str]=None,
             if not parsed_links:
                 raise Exception(f'No links found using {parser_name} parser')
 
-            # print(f'[√] Parser {parser_name} succeeded: {len(parsed_links)} links parsed')
-            if len(parsed_links) > len(most_links):
-                most_links = parsed_links
-                best_parser_name = parser_name
+            print(f'[√] Parser {parser_name} succeeded: {len(parsed_links)} links parsed')
+            break
                 
         except Exception as err:                                                # noqa
             # Parsers are tried one by one down the list, and the first one
@@ -143,8 +141,9 @@ def run_parser_functions(to_parse: IO[str], timer, root_url: Optional[str]=None,
             # print('[!] Parser {} failed: {} {}'.format(parser_name, err.__class__.__name__, err))
             # raise
             pass
+
     timer.end()
-    return most_links, best_parser_name
+    return parsed_links, parser_name
 
 
 @enforce_types
